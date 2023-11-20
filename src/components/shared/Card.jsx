@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+// This is a card component to apply conditional styles
 function Card({ children, reverse }) {
   //return <div className={`card ${reverse && 'reverse}`}> {children} </div>
 
