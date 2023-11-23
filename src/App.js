@@ -1,29 +1,39 @@
 import FeedbackList from "./components/FeedbackList";
 import Header from "./components/Header";
-import { useState } from "react";
 import FeedbackData from "./data/FeedbackData";
+import FeedbackStats from "./components/FeedbackStats";
+import FeedbackForm from "./components/FeedbackForm";
+import AboutPage from "./pages/AboutPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AboutIconLink from "./components/AboutIconLink";
+import { FeedbackProvider } from "./context/FeedbackContext";
 
 function App() {
-  // This is an app level state
-  const [feedback, setFeedback] = useState(FeedbackData);
-
-  // Here, we want to check if a particular item has the same id as that of the id was given.
-  // If yes, then feedback.filter will return the array of all items that do not match with the given id.
-  // and setFeedback will set the feedback to this new array.
-  const deleteFeedback = (id) => {
-    if (window.confirm("Are you sure you want to delete ?")) {
-      setFeedback(feedback.filter((item) => item.id !== id));
-    }
-  };
-
   return (
-    <>
-      <Header />
-      <div>
-        {/* In order to pass in the app level state to the feedback list */}
-        <FeedbackList feedBack={feedback} handleDelete={deleteFeedback} />
-      </div>
-    </>
+    <FeedbackProvider>
+      <Router>
+        <Header />
+        <div className="container">
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <>
+                  <FeedbackForm />
+                  {/* We pass in feedback as a prop because whenever the feedback state changes, we want the FeedbackStats component to automatically change */}
+                  <FeedbackStats />
+                  {/* In order to pass in the app level state to the feedback list */}
+                  <FeedbackList />
+                </>
+              }
+            ></Route>
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+          <AboutIconLink />
+        </div>
+      </Router>
+    </FeedbackProvider>
   );
 }
 
