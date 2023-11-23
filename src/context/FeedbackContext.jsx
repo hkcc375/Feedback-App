@@ -4,10 +4,8 @@ import { v4 as uuid4 } from "uuid";
 const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
-  {
-    /* Any state or function that we want to pass in, can be provided as value. Right
-    now, we have only 1 item */
-  }
+  /* Any state or function that we want to pass in, can be provided as value. Right
+  now, we have only 1 item */
   const [feedBack, setFeedBack] = useState([
     { id: 1, text: "This istem is from context", rating: 10 },
   ]);
